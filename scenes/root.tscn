@@ -1,3 +1,48 @@
-[gd_scene format=3 uid="uid://bilvcxqdjbnej"]
+[gd_scene load_steps=7 format=3 uid="uid://df1bwb6yo5btd"]
+
+[ext_resource type="Script" path="res://scenes/character_body_3d.gd" id="1_xo7cu"]
+[ext_resource type="Script" path="res://scenes/camera_3d.gd" id="2_tw6tf"]
+[ext_resource type="PackedScene" uid="uid://cixlcnd0rqadq" path="res://scenes/goddess_rig.tscn" id="3_5hfcu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ybepd"]
+
+[sub_resource type="Animation" id="Animation_4r8kb"]
+resource_name = "flap"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hj6l3"]
+_data = {
+"flap": SubResource("Animation_4r8kb")
+}
 
 [node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.619671, 0.159605, -0.415968)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, -0.5, 0)
+use_collision = true
+
+[node name="character" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05947, 0)
+script = ExtResource("1_xo7cu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="character"]
+shape = SubResource("BoxShape3D_ybepd")
+
+[node name="camerapoint" type="Node3D" parent="character"]
+
+[node name="playercamera" type="Camera3D" parent="character/camerapoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.856405, 2.6788)
+script = ExtResource("2_tw6tf")
+
+[node name="goddess_rig" parent="character/camerapoint" instance=ExtResource("3_5hfcu")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="character/camerapoint/goddess_rig"]
+libraries = {
+"": SubResource("AnimationLibrary_hj6l3")
+}
+
+[node name="SpotLight3D" type="SpotLight3D" parent="character"]
+transform = Transform3D(1, 0, 0, 0, -0.0492159, 0.998788, 0, -0.998788, -0.0492159, 0, 10.2665, 0)
+light_energy = 5.202
+light_size = 1.0
+spot_range = 20.387
