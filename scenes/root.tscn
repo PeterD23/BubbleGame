@@ -1,4 +1,4 @@
-[gd_scene load_steps=149 format=4 uid="uid://df1bwb6yo5btd"]
+[gd_scene load_steps=152 format=4 uid="uid://df1bwb6yo5btd"]
 
 [ext_resource type="Script" path="res://scenes/character_body_3d.gd" id="1_xo7cu"]
 [ext_resource type="Script" path="res://scenes/camera_3d.gd" id="2_tw6tf"]
@@ -10,6 +10,9 @@
 [ext_resource type="Material" uid="uid://25b1wiqhiwbg" path="res://materials/manytextures_greengrass-512x512.tres" id="7_fs4de"]
 [ext_resource type="Script" path="res://scripts/unalive_zone.gd" id="8_jt2ru"]
 [ext_resource type="Shader" path="res://materials/bubble_shader.gdshader" id="10_yxh5q"]
+[ext_resource type="PackedScene" uid="uid://cw5qa8547ybbu" path="res://scenes/bubble.tscn" id="11_52qkq"]
+[ext_resource type="PackedScene" uid="uid://cixlcnd0rqadq" path="res://scenes/goddess_rig.tscn" id="12_xht2v"]
+[ext_resource type="Script" path="res://scripts/goddess.gd" id="13_76kmj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gsn0n"]
 height = 1.44111
@@ -904,6 +907,103 @@ script = ExtResource("8_jt2ru")
 [node name="Boundary" type="CollisionShape3D" parent="OOBZone"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.92046, 95.1935)
 shape = SubResource("BoxShape3D_q3nsw")
+
+[node name="BubblePlatforms" type="Node3D" parent="."]
+transform = Transform3D(1.00051, 0, 0, 0, 1.00051, 0, 0, 0, 1.00051, 0.0157146, 0.00767708, 162.604)
+
+[node name="Bubble" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.81305, 32.2101, 4.64415)
+
+[node name="Bubble2" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.79124, 32.3775, 7.24858)
+
+[node name="Bubble3" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.90716, 35.0652, 12.1363)
+
+[node name="Bubble4" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.57824, 37.0823, 13.3033)
+
+[node name="Bubble5" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.90716, 38.7145, 18.2324)
+
+[node name="Bubble6" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.57824, 40.7315, 19.3995)
+
+[node name="Bubble7" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.90716, 42.0059, 24.5022)
+
+[node name="Bubble8" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.57824, 44.023, 25.6692)
+
+[node name="Bubble9" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.90716, 45.5043, 30.3938)
+
+[node name="Bubble10" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.57824, 47.5213, 31.5608)
+
+[node name="Bubble11" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.90716, 48.6445, 35.7138)
+
+[node name="Bubble12" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.57824, 50.6616, 36.8808)
+
+[node name="Bubble13" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.90716, 51.8265, 40.4177)
+
+[node name="Bubble14" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.57824, 53.8435, 41.5847)
+
+[node name="Bubble15" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.90716, 54.2305, 45.889)
+
+[node name="Bubble16" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.57824, 56.2475, 47.056)
+
+[node name="Bubble17" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.90716, 56.8107, 50.8837)
+
+[node name="Bubble18" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.57824, 58.8278, 52.0507)
+
+[node name="Bubble19" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.90716, 59.7799, 55.4361)
+
+[node name="Bubble20" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.57824, 61.7969, 56.6031)
+
+[node name="Bubble21" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.90716, 62.5452, 59.5448)
+
+[node name="Bubble22" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.57824, 64.5623, 60.7119)
+
+[node name="Bubble23" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.90716, 65.3258, 64.452)
+
+[node name="Bubble24" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.57824, 67.3428, 65.619)
+
+[node name="Bubble25" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.90716, 68.2442, 68.86)
+
+[node name="Bubble26" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.57824, 70.2613, 70.027)
+
+[node name="Bubble27" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.90716, 71.4427, 73.801)
+
+[node name="Bubble28" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.57824, 73.4598, 74.968)
+
+[node name="Bubble29" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.90716, 72.0388, 82.7607)
+
+[node name="Bubble30" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.57824, 74.0559, 83.9277)
+
+[node name="goddess" parent="BubblePlatforms" groups=["poppable"] instance=ExtResource("12_xht2v")]
+transform = Transform3D(-0.999494, 0, -8.73785e-08, 0, 0.999494, 0, 8.73785e-08, 0, -0.999494, 7.15863, 76.9534, 103.648)
+script = ExtResource("13_76kmj")
 
 [connection signal="body_entered" from="UnaliveZone" to="UnaliveZone" method="_on_body_entered"]
 [connection signal="body_entered" from="OOBZone" to="OOBZone" method="_on_body_entered"]

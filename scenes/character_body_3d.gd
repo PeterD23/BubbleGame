@@ -1,16 +1,12 @@
 extends CharacterBody3D
 
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+const SPEED = 20.0
+const JUMP_VELOCITY = 10.5
 
 @onready var camera := $camerapoint
-@onready var goddessAnimation:AnimationPlayer = $camerapoint/goddess_rig/AnimationPlayer
-
-func _ready():
-	var anim: Animation = goddessAnimation.get_animation(&"Wave")
-	anim.loop_mode = Animation.LOOP_LINEAR
-	goddessAnimation.play(&"Wave")
+@onready var bubble_man := $"camerapoint/BubbleMan"
+@onready var particle_emitter := $"camerapoint/UnaliveBubbles"
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -40,9 +36,10 @@ func _input(event):
 			rotate_y(-event.relative.x*0.005)
 			camera.rotate_x(-event.relative.y*0.005)
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-60), deg_to_rad(20))
-	if event is InputEventAction and event.is_action_pressed("lock_mouse"):
+	if event is InputEventKey and event.is_action_pressed("lock_mouse"):
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE else Input.MOUSE_MODE_VISIBLE
-	#if event is InputEventMouseButton:
-		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	#if event is InputEventMouseButton and Input.MOUSE_MODE_CAPTURED:
-		#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func unalive():
+	bubble_man.queue_free()
+	set_physics_process(false)
+	particle_emitter.set_emitting(true)
