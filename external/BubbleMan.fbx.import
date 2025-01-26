@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b65hqgxonh73j"
-path="res://.godot/imported/BubbleMan.fbx-bbb7c6776e8524d15b7e0cfbbb518b8a.scn"
+path="res://.godot/imported/BubbleMan.fbx-438df25d2b16c249ac22225ff7525025.scn"
 
 [deps]
 
-source_file="res://BubbleMan.fbx"
-dest_files=["res://.godot/imported/BubbleMan.fbx-bbb7c6776e8524d15b7e0cfbbb518b8a.scn"]
+source_file="res://external/BubbleMan.fbx"
+dest_files=["res://.godot/imported/BubbleMan.fbx-438df25d2b16c249ac22225ff7525025.scn"]
 
 [params]
 

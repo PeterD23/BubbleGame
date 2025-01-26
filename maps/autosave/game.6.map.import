@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.map"
+type="Resource"
+uid="uid://dprdkscois2g0"
+path="res://.godot/imported/game.6.map-42838faf7bed08aa2b4a56f3e3d5b142.tres"
+
+[deps]
+
+source_file="res://maps/autosave/game.6.map"
+dest_files=["res://.godot/imported/game.6.map-42838faf7bed08aa2b4a56f3e3d5b142.tres"]
+
+[params]
+
