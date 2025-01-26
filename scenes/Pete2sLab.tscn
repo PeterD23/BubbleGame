@@ -1,14 +1,14 @@
 [gd_scene load_steps=140 format=4 uid="uid://ci0v7ltqodxk7"]
 
-[ext_resource type="Script" path="res://scenes/character_body_3d.gd" id="1_rdaff"]
-[ext_resource type="Script" path="res://scenes/camera_3d.gd" id="2_r7sch"]
+[ext_resource type="Script" path="res://scripts/character_body_3d.gd" id="1_rdaff"]
+[ext_resource type="Script" path="res://scripts/camera_3d.gd" id="2_r7sch"]
 [ext_resource type="PackedScene" uid="uid://cixlcnd0rqadq" path="res://scenes/goddess_rig.tscn" id="3_obrow"]
 [ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="4_t1ql0"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="5_lwf52"]
 [ext_resource type="Material" uid="uid://bppkargxv5teo" path="res://materials/kawaii.tres" id="6_yhbx0"]
 [ext_resource type="Material" uid="uid://25b1wiqhiwbg" path="res://materials/manytextures_greengrass-512x512.tres" id="7_yc2hj"]
 [ext_resource type="Script" path="res://scenes/goddess.gd" id="8_ppo5e"]
-[ext_resource type="Script" path="res://scenes/test_character.gd" id="9_g5kdi"]
+[ext_resource type="Script" path="res://scripts/test_character.gd" id="9_g5kdi"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ybepd"]
 

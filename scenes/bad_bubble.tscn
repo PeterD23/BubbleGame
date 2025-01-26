@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://c3cskmw5q5sgj"]
+
+[ext_resource type="Script" path="res://scripts/bad_bubble.gd" id="1_5glnp"]
+[ext_resource type="Shader" path="res://materials/bubble_shader.gdshader" id="2_rbtex"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_g5y0d"]
+friction = 0.32
+bounce = 0.7
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2e33w"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rk7dr"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_shpbr"]
+noise = SubResource("FastNoiseLite_rk7dr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ajc4u"]
+render_priority = 0
+shader = ExtResource("2_rbtex")
+shader_parameter/bubble_color = Color(1, 0, 0, 1)
+shader_parameter/height_multiplier = 0.1
+shader_parameter/noise_sample_size = 0.1
+shader_parameter/animation_speed = 0.1
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_shpbr")
+
+[sub_resource type="SphereMesh" id="SphereMesh_bf77g"]
+material = SubResource("ShaderMaterial_ajc4u")
+
+[node name="BadBubble" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.935814, 1.06929, 0.783192)
+collision_layer = 2
+collision_mask = 3
+mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_g5y0d")
+gravity_scale = 0.4
+contact_monitor = true
+max_contacts_reported = 5
+script = ExtResource("1_5glnp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_2e33w")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_bf77g")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

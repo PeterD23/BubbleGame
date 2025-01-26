@@ -1,7 +1,10 @@
-[gd_scene load_steps=16 format=4 uid="uid://cixlcnd0rqadq"]
+[gd_scene load_steps=18 format=4 uid="uid://cixlcnd0rqadq"]
 
 [ext_resource type="Material" uid="uid://bohv0pbs44duv" path="res://materials/yaskween.tres" id="1_hulnt"]
 [ext_resource type="Material" uid="uid://dv61iljkp8n4x" path="res://materials/bubble_shader.tres" id="2_6rnd7"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_f5bgs"]
+friction = 0.1
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ko3b2"]
 _surfaces = [{
@@ -175,6 +178,7 @@ tracks/10/keys = PackedFloat32Array(0, 1, -0.493089, -0.462606, -0.718956, 0.161
 [sub_resource type="Animation" id="Animation_01py5"]
 resource_name = "MadFlap"
 length = 0.333333
+loop_mode = 1
 step = 0.0166667
 tracks/0/type = "position_3d"
 tracks/0/imported = true
@@ -447,7 +451,12 @@ material = ExtResource("2_6rnd7")
 radius = 0.1
 height = 0.2
 
-[node name="goddess" type="Node3D"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1vnax"]
+height = 0.734923
+
+[node name="goddess" type="RigidBody3D"]
+mass = 0.01
+physics_material_override = SubResource("PhysicsMaterial_f5bgs")
 
 [node name="Cylinder001" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.00968349, 0, 0.00249601, 0, 0.01, 0, -0.00249601, 0, 0.00968349, 0.0522139, 0.759431, 0.031339)
@@ -469,16 +478,16 @@ bones/1/name = "Bone.L"
 bones/1/parent = 0
 bones/1/rest = Transform3D(0.0597998, -0.713519, -0.698079, -0.136952, -0.698582, 0.702301, -0.988771, 0.0536059, -0.139493, -0.974278, 0.564098, -0.0696399)
 bones/1/enabled = true
-bones/1/position = Vector3(-1.03785, 0.564098, -0.0696399)
-bones/1/rotation = Quaternion(0.688817, -0.308671, -0.612227, -0.235438)
-bones/1/scale = Vector3(1.06525, 1.06525, 1.06525)
+bones/1/position = Vector3(-0.974277, 0.564098, -0.0696399)
+bones/1/rotation = Quaternion(0.688812, -0.304747, -0.616401, -0.229603)
+bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "Bone.R"
 bones/2/parent = 0
 bones/2/rest = Transform3D(0.0597998, 0.713519, 0.698079, 0.136952, -0.698582, 0.702301, 0.988771, 0.0536059, -0.139493, 0.974277, 0.564098, -0.0696399)
 bones/2/enabled = true
-bones/2/position = Vector3(1.03785, 0.564098, -0.0696399)
+bones/2/position = Vector3(0.974277, 0.564098, -0.0696399)
 bones/2/rotation = Quaternion(0.688817, 0.308671, 0.612227, -0.235438)
-bones/2/scale = Vector3(1.06525, 1.06525, 1.06525)
+bones/2/scale = Vector3(1, 1, 1)
 bones/3/name = "Bone.L1.L"
 bones/3/parent = -1
 bones/3/rest = Transform3D(0.546177, -0.662426, -0.512721, 0.19524, -0.494554, 0.846934, -0.814599, -0.562679, -0.140782, -1.49012e-08, -5.96046e-08, 0)
@@ -547,3 +556,10 @@ explosiveness = 1.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_4go65")
 draw_pass_1 = SubResource("SphereMesh_jo60h")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.501144, 0)
+shape = SubResource("CylinderShape3D_1vnax")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.765274, 1.74871)

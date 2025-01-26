@@ -1,18 +1,29 @@
-[gd_scene load_steps=152 format=4 uid="uid://df1bwb6yo5btd"]
+[gd_scene load_steps=159 format=4 uid="uid://df1bwb6yo5btd"]
 
-[ext_resource type="Script" path="res://scenes/character_body_3d.gd" id="1_xo7cu"]
-[ext_resource type="Script" path="res://scenes/camera_3d.gd" id="2_tw6tf"]
+[ext_resource type="Script" path="res://scenes/root.gd" id="1_bblpu"]
+[ext_resource type="Script" path="res://scripts/character_body_3d.gd" id="1_xo7cu"]
+[ext_resource type="AudioStream" uid="uid://bwf566n4tfbdo" path="res://sounds/BubbleGameMusic2.wav" id="2_1yiks"]
+[ext_resource type="Script" path="res://scenes/ending.gd" id="2_e6q36"]
 [ext_resource type="PackedScene" uid="uid://bh8tis6fm4juv" path="res://scenes/bubble_man.tscn" id="3_qr3mh"]
 [ext_resource type="Material" uid="uid://dv61iljkp8n4x" path="res://materials/bubble_shader.tres" id="4_afdr1"]
+[ext_resource type="Script" path="res://scenes/transition.gd" id="4_tnhks"]
 [ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="4_ydb8y"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="5_3k5cb"]
+[ext_resource type="AudioStream" uid="uid://du6mesaomhbfx" path="res://sounds/BubbleGameVO_Master_Wav/Player_VO_Master/AC_PlayerGasp_Master_48K_24b_mono_v01_WAV.wav" id="5_cgnug"]
 [ext_resource type="Material" uid="uid://bppkargxv5teo" path="res://materials/kawaii.tres" id="6_gmfmi"]
+[ext_resource type="AudioStream" uid="uid://sj2q1weo4eau" path="res://sounds/Sound Effects/Bad Bubble Popping.wav" id="6_wknh0"]
 [ext_resource type="Material" uid="uid://25b1wiqhiwbg" path="res://materials/manytextures_greengrass-512x512.tres" id="7_fs4de"]
 [ext_resource type="Script" path="res://scripts/unalive_zone.gd" id="8_jt2ru"]
 [ext_resource type="Shader" path="res://materials/bubble_shader.gdshader" id="10_yxh5q"]
 [ext_resource type="PackedScene" uid="uid://cw5qa8547ybbu" path="res://scenes/bubble.tscn" id="11_52qkq"]
 [ext_resource type="PackedScene" uid="uid://cixlcnd0rqadq" path="res://scenes/goddess_rig.tscn" id="12_xht2v"]
 [ext_resource type="Script" path="res://scripts/goddess.gd" id="13_76kmj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2k1uk"]
+size = Vector3(14.2834, 10.1436, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i4cng"]
+size = Vector3(13.512, 1.99597, 2.61023)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gsn0n"]
 height = 1.44111
@@ -453,7 +464,7 @@ glow_bloom = 1.0
 fog_density = 0.2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fhwr1"]
-size = Vector3(10, 2, 100)
+size = Vector3(10, 2, 120.798)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_nhd4r"]
 
@@ -479,8 +490,32 @@ size = Vector3(100, 10, 350)
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.619671, 0.159605, -0.415968)
+script = ExtResource("1_bblpu")
 
-[node name="character" type="CharacterBody3D" parent="." groups=["poppable"]]
+[node name="Ending" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 75.1823, 260.782)
+script = ExtResource("2_e6q36")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ending"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.64168, 6.75803, 0)
+shape = SubResource("BoxShape3D_2k1uk")
+
+[node name="Goddess" parent="." groups=["player", "poppable"] instance=ExtResource("12_xht2v")]
+transform = Transform3D(-1, 0, -8.74231e-08, 0, 1, 0, 8.74231e-08, 0, -1, 7, 29.5543, 138.313)
+script = ExtResource("13_76kmj")
+
+[node name="Transition" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28.7896, 131.32)
+script = ExtResource("4_tnhks")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Transition"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.25598, 0.497986, 0.805115)
+shape = SubResource("BoxShape3D_i4cng")
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_1yiks")
+
+[node name="character" type="CharacterBody3D" parent="." groups=["player", "poppable"]]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 5.5959, 1.05947, 1.3728)
 script = ExtResource("1_xo7cu")
 
@@ -491,7 +526,7 @@ shape = SubResource("CapsuleShape3D_gsn0n")
 
 [node name="playercamera" type="Camera3D" parent="character/camerapoint"]
 transform = Transform3D(1, -3.15687e-08, -5.8988e-09, 3.15687e-08, 0.932526, 0.361104, -5.89881e-09, -0.361104, 0.932526, 0, 1.56781, 2.6788)
-script = ExtResource("2_tw6tf")
+current = true
 
 [node name="BubbleMan" parent="character/camerapoint" instance=ExtResource("3_qr3mh")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.000185013, 0.00781369, 0.0029397)
@@ -505,6 +540,12 @@ explosiveness = 1.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_333w5")
 draw_pass_1 = SubResource("SphereMesh_d4yeh")
+
+[node name="Unalive" type="AudioStreamPlayer2D" parent="character"]
+stream = ExtResource("5_cgnug")
+
+[node name="Pop" type="AudioStreamPlayer2D" parent="character"]
+stream = ExtResource("6_wknh0")
 
 [node name="FuncGodotMap" type="Node3D" parent="."]
 script = ExtResource("4_ydb8y")
@@ -894,6 +935,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.80163, 17.3338, 187.656)
 script = ExtResource("8_jt2ru")
 
 [node name="Boundary" type="CollisionShape3D" parent="UnaliveZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10.3989)
 shape = SubResource("BoxShape3D_fhwr1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -1001,9 +1043,7 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 9.90716, 72.0388, 82.7607)
 [node name="Bubble30" parent="BubblePlatforms" instance=ExtResource("11_52qkq")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 3.57824, 74.0559, 83.9277)
 
-[node name="goddess" parent="BubblePlatforms" groups=["poppable"] instance=ExtResource("12_xht2v")]
-transform = Transform3D(-0.999494, 0, -8.73785e-08, 0, 0.999494, 0, 8.73785e-08, 0, -0.999494, 7.15863, 76.9534, 103.648)
-script = ExtResource("13_76kmj")
-
+[connection signal="body_entered" from="Ending" to="Ending" method="_on_body_entered"]
+[connection signal="body_entered" from="Transition" to="Transition" method="_on_body_entered"]
 [connection signal="body_entered" from="UnaliveZone" to="UnaliveZone" method="_on_body_entered"]
 [connection signal="body_entered" from="OOBZone" to="OOBZone" method="_on_body_entered"]
