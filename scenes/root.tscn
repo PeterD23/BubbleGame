@@ -1,14 +1,39 @@
-[gd_scene load_steps=136 format=4 uid="uid://df1bwb6yo5btd"]
+[gd_scene load_steps=149 format=4 uid="uid://df1bwb6yo5btd"]
 
 [ext_resource type="Script" path="res://scenes/character_body_3d.gd" id="1_xo7cu"]
 [ext_resource type="Script" path="res://scenes/camera_3d.gd" id="2_tw6tf"]
-[ext_resource type="PackedScene" uid="uid://cixlcnd0rqadq" path="res://scenes/goddess_rig.tscn" id="3_5hfcu"]
+[ext_resource type="PackedScene" uid="uid://bh8tis6fm4juv" path="res://scenes/bubble_man.tscn" id="3_qr3mh"]
+[ext_resource type="Material" uid="uid://dv61iljkp8n4x" path="res://materials/bubble_shader.tres" id="4_afdr1"]
 [ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="4_ydb8y"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="5_3k5cb"]
 [ext_resource type="Material" uid="uid://bppkargxv5teo" path="res://materials/kawaii.tres" id="6_gmfmi"]
 [ext_resource type="Material" uid="uid://25b1wiqhiwbg" path="res://materials/manytextures_greengrass-512x512.tres" id="7_fs4de"]
+[ext_resource type="Script" path="res://scripts/unalive_zone.gd" id="8_jt2ru"]
+[ext_resource type="Shader" path="res://materials/bubble_shader.gdshader" id="10_yxh5q"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ybepd"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gsn0n"]
+height = 1.44111
+
+[sub_resource type="Curve" id="Curve_prnh2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.65942, 0.934066), 0.0, 0.0, 0, 0, Vector2(0.876812, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_7kpl3"]
+curve = SubResource("Curve_prnh2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_333w5"]
+particle_flag_align_y = true
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+gravity = Vector3(0, 15, 0)
+scale_curve = SubResource("CurveTexture_7kpl3")
+
+[sub_resource type="SphereMesh" id="SphereMesh_d4yeh"]
+material = ExtResource("4_afdr1")
+radius = 0.1
+height = 0.2
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_mqq73"]
 _surfaces = [{
@@ -424,24 +449,59 @@ glow_strength = 2.0
 glow_bloom = 1.0
 fog_density = 0.2
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_fhwr1"]
+size = Vector3(10, 2, 100)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nhd4r"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ypbx7"]
+noise = SubResource("FastNoiseLite_nhd4r")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_htfh4"]
+render_priority = 0
+shader = ExtResource("10_yxh5q")
+shader_parameter/bubble_color = Color(0.790332, 0.299549, 0.577331, 1)
+shader_parameter/height_multiplier = 0.1
+shader_parameter/noise_sample_size = 1.0
+shader_parameter/animation_speed = 0.2
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_ypbx7")
+
+[sub_resource type="TorusMesh" id="TorusMesh_ycxkn"]
+material = SubResource("ShaderMaterial_htfh4")
+inner_radius = 39.807
+outer_radius = 20.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q3nsw"]
+size = Vector3(100, 10, 350)
+
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.619671, 0.159605, -0.415968)
 
-[node name="character" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5959, 1.05947, 0)
+[node name="character" type="CharacterBody3D" parent="." groups=["poppable"]]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 5.5959, 1.05947, 1.3728)
 script = ExtResource("1_xo7cu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="character"]
-shape = SubResource("BoxShape3D_ybepd")
+shape = SubResource("CapsuleShape3D_gsn0n")
 
 [node name="camerapoint" type="Node3D" parent="character"]
 
 [node name="playercamera" type="Camera3D" parent="character/camerapoint"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.856405, 2.6788)
+transform = Transform3D(1, -3.15687e-08, -5.8988e-09, 3.15687e-08, 0.932526, 0.361104, -5.89881e-09, -0.361104, 0.932526, 0, 1.56781, 2.6788)
 script = ExtResource("2_tw6tf")
 
-[node name="goddess_rig" parent="character/camerapoint" instance=ExtResource("3_5hfcu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00184488, 0.0177095, 0.72746)
+[node name="BubbleMan" parent="character/camerapoint" instance=ExtResource("3_qr3mh")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.000185013, 0.00781369, 0.0029397)
+
+[node name="UnaliveBubbles" type="GPUParticles3D" parent="character/camerapoint"]
+emitting = false
+amount = 24
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_333w5")
+draw_pass_1 = SubResource("SphereMesh_d4yeh")
 
 [node name="FuncGodotMap" type="Node3D" parent="."]
 script = ExtResource("4_ydb8y")
@@ -825,3 +885,25 @@ shape = SubResource("ConvexPolygonShape3D_xo1pw")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_q2yvr")
+
+[node name="UnaliveZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.80163, 17.3338, 187.656)
+script = ExtResource("8_jt2ru")
+
+[node name="Boundary" type="CollisionShape3D" parent="UnaliveZone"]
+shape = SubResource("BoxShape3D_fhwr1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1.02999e-06, -2.72471, 0, 23.5635, -1.19101e-07, 6.80216, 32.9848, 125.416)
+mesh = SubResource("TorusMesh_ycxkn")
+
+[node name="OOBZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.10722, 32.2072)
+script = ExtResource("8_jt2ru")
+
+[node name="Boundary" type="CollisionShape3D" parent="OOBZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.92046, 95.1935)
+shape = SubResource("BoxShape3D_q3nsw")
+
+[connection signal="body_entered" from="UnaliveZone" to="UnaliveZone" method="_on_body_entered"]
+[connection signal="body_entered" from="OOBZone" to="OOBZone" method="_on_body_entered"]

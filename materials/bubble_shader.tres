@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dv61iljkp8n4x"]
+
+[ext_resource type="Shader" path="res://materials/bubble_shader.gdshader" id="1_rth3c"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dvrlf"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gt1em"]
+seamless = true
+noise = SubResource("FastNoiseLite_dvrlf")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_rth3c")
+shader_parameter/bubble_color = Color(0, 0, 0, 1)
+shader_parameter/height_multiplier = 0.1
+shader_parameter/noise_sample_size = 0.1
+shader_parameter/animation_speed = 0.1
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_gt1em")
